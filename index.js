@@ -130,7 +130,7 @@ function insertMixin(helpers, mixins, rule, opts) {
     if (!opts.silent) {
       throw rule.error('Undefined mixin ' + name)
     }
-  } else if (mixin.name === 'define-mixin') {
+  } else if (mixin.name === 'mixin') {
     let i
     let values = {}
     for (i = 0; i < meta.args.length; i++) {
@@ -202,11 +202,11 @@ module.exports = (opts = {}) => {
           }
         },
         AtRule: {
-          'define-mixin': (node, helpers) => {
+          'mixin': (node, helpers) => {
             addMixin(helpers, mixins, node)
             node.remove()
           },
-          'mixin': (node, helpers) => {
+          'include': (node, helpers) => {
             insertMixin(helpers, mixins, node, opts)
           },
           'add-mixin': (node, helpers) => {
